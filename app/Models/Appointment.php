@@ -14,7 +14,7 @@ class Appointment extends Model implements AuthenticatableContract, Authorizable
     use Authenticatable, Authorizable, HasFactory;
 
     protected $table = "appointments";
-    protected $primaryKey = "appointmentID";
+    protected $primaryKey = "id";
 
     /**
      * The attributes that are mass assignable.
@@ -34,8 +34,8 @@ class Appointment extends Model implements AuthenticatableContract, Authorizable
         'distance',
         'checkoutTime',
         'returnTime',
-        'userID',
-        'tempFreezing',
+        'created_by',
+        'hold',
         'done',
     ];
 
