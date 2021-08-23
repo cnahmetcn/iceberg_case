@@ -69,7 +69,34 @@ class AuthController extends Controller
         );
 
         return response()->json(['message' => 'User created successfully', 'user' => $user]);
-    } //end register()
+    }
+
+    public function update (User $userId, Request $request, $id)
+    {
+        $loggedUser = Auth::guard('api')->id();
+        $userId = User::findOrFail($id);
+
+        if ($userId->id == $loggedUser) {
+            $email = $request->email;
+            $fullName = $request->fullName;
+            $password = $request->password;
+
+            $user = User::find($id);
+            $user->email = $email;
+            $user->fullName = $fullName;
+            $user->password = bcrypt($password);
+            $user->save();
+
+            return response()->json(['message' => 'User updated successfully', 'user' => $user]);
+        }
+        else if($userId->id != $loggedUser)
+        {
+            return response()->json(['message' => 'You are not authorized to update this user'], 401);
+        }
+
+
+
+    }
 
 
     public function logout()

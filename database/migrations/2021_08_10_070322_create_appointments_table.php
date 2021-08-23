@@ -15,23 +15,24 @@ class CreateAppointmentsTable extends Migration
     public function up()
     {
         Schema::create('appointments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('userID')->nullable();
-            $table->string("name",50);
-            $table->string("surname",50);
-            $table->string("phone",15);
-            $table->string("email",50);
+            $table->increments('id');
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->string("name", 50);
+            $table->string("surname", 50);
+            $table->string("phone", 15);
+            $table->string("email", 50);
 
             $table->date("date");
             $table->string("time");
 
-            $table->string("address",10);
-            $table->string("longAddress",100);
-            $table->string("distance",20)->nullable();
+            $table->string("address", 10);
+            $table->string("longAddress", 200);
+            $table->string("distance", 20)->nullable();
             $table->string("checkoutTime")->nullable();
             $table->string("returnTime")->nullable();
 
-            $table->tinyInteger("tempFreezing")->default(0)
+            $table->tinyInteger("hold")->default(0)
                 ->comment = 'activate 0 / deactivate 1 ';
 
             $table->tinyInteger("done")->default(0)
