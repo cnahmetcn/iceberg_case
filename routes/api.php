@@ -42,7 +42,7 @@ Route::group([
     Route::post('add', [AppointmentController::class, 'store'])->middleware(['api', 'auth:api']);
     Route::post('update/{id}', [AppointmentController::class, 'update'])->middleware(['api', 'auth:api']);
     Route::post('update/assignment/{id}', [AppointmentController::class, 'assignment'])->middleware(['api', 'auth:api']);
-    Route::get('update/assignment/done{id}', [AppointmentController::class, 'done'])->middleware(['api', 'auth:api']);
+    Route::get('update/assignment/done/{id}', [AppointmentController::class, 'done'])->middleware(['api', 'auth:api']);
     Route::get('show/{id}', [AppointmentController::class, 'show'])->middleware(['api', 'auth:api']);
     Route::get('all', [AppointmentController::class, 'all'])->middleware(['api', 'auth:api']);
     Route::delete('delete/{id}', [AppointmentController::class, 'destroy'])->middleware(['api', 'auth:api']);

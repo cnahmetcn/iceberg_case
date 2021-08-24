@@ -124,8 +124,8 @@ class AppointmentController extends Controller
                 if (isset($request->date)  && !empty($request->date)) {
                     $appointments->where('appointments.date', '=', $request->date);
                 }
-                if (isset($request->userID)  && !empty($request->userID)) {
-                    $appointments->where('appointments.userID', '=', $request->userID);
+                if (isset($request->created_by)  && !empty($request->created_by)) {
+                    $appointments->where('appointments.created_by', '=', $request->created_by);
                 }
                 $appointments->where('appointments.hold', '=', $request->hold)
                     ->where('appointments.done', 'like', '%' . $request->done . '%')
@@ -199,7 +199,7 @@ class AppointmentController extends Controller
                         $query->where('returnTime', '>=', $appointment->returnTime)
                             ->Where('checkoutTime', '<=', $appointment->returnTime);
                     });
-                })->where('userID', $request->userID)
+                })->where('created_by', $request->created_by)
                     ->where('done', '=', 0)
                     ->first();
 
