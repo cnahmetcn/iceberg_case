@@ -18,7 +18,6 @@ class AppointmentController extends Controller
      * @return JsonResponse|object
      */
 
-    //this Func will store Appointment to database
     public function store(Request $request)
     {
 
@@ -50,7 +49,6 @@ class AppointmentController extends Controller
      * @return JsonResponse|object
      */
 
-    //this Func will update one Appointment
     public function update(Request $request, $id)
     {
                                    // find Appointment  to update
@@ -94,16 +92,12 @@ class AppointmentController extends Controller
 
     }
 
-
-
-
     /**
      * @param Request $request
      * @param $id
      * @return JsonResponse|object
      */
 
-    // this Func will return one Appointment with his phone byID
     public function show($id)
     {
         return Appointment::find($id);
@@ -115,10 +109,8 @@ class AppointmentController extends Controller
     }
 
 
-    // this Func will paginate all Appointments with selected inputs
     public function pagination(Request $request)
     {
-        // checkRequest Func checking requests
             try {
                 $appointments = DB::table('appointments');
                 if (isset($request->date)  && !empty($request->date)) {
@@ -158,7 +150,6 @@ class AppointmentController extends Controller
      * @return JsonResponse|object
      */
 
-    //this Func will update one Appointment
     public function done(Request $request, $id)
     {
         // checkRequest Func checking requests
@@ -181,7 +172,6 @@ class AppointmentController extends Controller
      * @return JsonResponse|object
      */
 
-    //this Func will update one Appointment
     public function assignment(Request $request, $id)
     {
             try {
@@ -190,7 +180,6 @@ class AppointmentController extends Controller
                     return $this->response->fail(['message' => __("response.AppointmentSelectionFail")]);
                 }
 
-                // check if user if free in needed hours
                 $freeUser = Appointment::where('hold', '=', 0)
                 ->where(function ($query) use ($request, $appointment) {
                     $query->where('returnTime', '>=', $appointment->checkoutTime)
@@ -219,14 +208,12 @@ class AppointmentController extends Controller
     }
 
 
-    // this function to send get request
     public function getRequest($url)
     {
         $response = $this->curlServiceProvider->get($this->postCodeApi.$url);
         return $response;
     }
 
-    // this function to send extract Long Address request
     public function extractAddress($url)
     {
         $response = json_decode($this->getRequest($url));
@@ -239,7 +226,6 @@ class AppointmentController extends Controller
     }
 
 
-    // this function to  get Distance And Duration from googleapis
     public function calcDistanceAndDuration($origin, $destination, $time)
     {
         $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" . $origin . "&destinations=" . $destination . "&sensor=false&key=" . $this->googleMapApi;
