@@ -51,6 +51,7 @@ class AuthController extends Controller
                 'fullName'     => 'required|string|between:2,100',
                 'email'    => 'required|email|unique:users',
                 'password' => 'required|confirmed|min:6',
+                'phone' => 'max:15',
             ]
         );
 
@@ -80,10 +81,12 @@ class AuthController extends Controller
             $email = $request->email;
             $fullName = $request->fullName;
             $password = $request->password;
+            $phone = $request->phone;
 
             $user = User::find($id);
             $user->email = $email;
             $user->fullName = $fullName;
+            $user->phone = $phone;
             $user->password = bcrypt($password);
             $user->save();
 
